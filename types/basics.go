@@ -16,6 +16,10 @@ const (
 	KeyRegistrationTx TxType = "keyreg"
 	// AssetConfigTx creates, re-configures, or destroys an asset
 	AssetConfigTx TxType = "acfg"
+	// AssetTransferTx transfers assets between accounts (optionally closing)
+	AssetTransferTx TxType = "axfer"
+	// AssetFreezeTx changes the freeze status of an asset
+	AssetFreezeTx TxType = "afrz"
 )
 
 const masterDerivationKeyLenBytes = 32
@@ -40,10 +44,12 @@ type Digest [hashLenBytes]byte
 
 const microAlgoConversionFactor = 1e6
 
+// ToAlgos converts amount in microAlgos to Algos
 func (microalgos MicroAlgos) ToAlgos() float64 {
 	return float64(microalgos) / microAlgoConversionFactor
 }
 
+// ToMicroAlgos converts amount in Algos to microAlgos
 func ToMicroAlgos(algos float64) MicroAlgos {
 	return MicroAlgos(math.Round(algos * microAlgoConversionFactor))
 }
